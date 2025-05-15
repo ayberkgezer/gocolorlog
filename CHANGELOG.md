@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/ayberkgezer/gocolorlog/compare/v1.0.0...v1.0.1) (2025-05-15)
+
+
+### Bug Fixes
+
+* fix ([9ea1b1b](https://github.com/ayberkgezer/gocolorlog/commit/9ea1b1bf0c5b2f76d0f9a4f9818bebd06f825b92))
+
 ## 1.0.0 (2025-05-15)
 
 
