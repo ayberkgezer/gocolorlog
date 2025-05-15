@@ -1,0 +1,29 @@
+name: Release Go Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run release-please
+        uses: google-github-actions/release-please-action@v4
+        with:
+          release-type: go
+          package-name: gocolorlog
+          repo-url: ayberkgezer/gocolorlog
+          changelog-types: |
+            [
+              {"type": "feat", "section": "Features"},
+              {"type": "fix", "section": "Bug Fixes"},
+              {"type": "refactor", "section": "Refactoring"},
+              {"type": "docs", "section": "Documentation"},
+              {"type": "chore", "section": "Other Changes"}
+            ]
