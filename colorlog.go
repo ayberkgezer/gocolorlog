@@ -1,11 +1,11 @@
 // Package colorlog provides a simple, colored and status-based logging interface for Go.
 // HTTP status koduna göre renkli ve seviyeli loglama arayüzü sunar.
-package colorlog
+package gocolorlog
 
 import (
 	"time"
 
-	"github.com/ayberkgezer/colorlog/internal/logger"
+	"github.com/ayberkgezer/gocolorlog/internal/logger"
 )
 
 // Logger is the common interface for any structure that can log with color and status.

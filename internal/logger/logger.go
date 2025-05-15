@@ -6,9 +6,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/ayberkgezer/colorlog/internal/color"
-	"github.com/ayberkgezer/colorlog/internal/level"
-	"github.com/ayberkgezer/colorlog/internal/options"
+	"github.com/ayberkgezer/gocolorlog/internal/color"
+	"github.com/ayberkgezer/gocolorlog/internal/level"
+	"github.com/ayberkgezer/gocolorlog/internal/options"
 )
 
 // Logger is the default logger type for colored output.

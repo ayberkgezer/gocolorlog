@@ -16,7 +16,7 @@ It maps HTTP status codes to colored log levels, making your terminal output cle
 ## Installation
 
 ```sh
-go get github.com/ayberkgezer/colorlog
+go get github.com/ayberkgezer/gocolorlog
 ```
 
 ## Usage
@@ -28,11 +28,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ayberkgezer/colorlog"
+	"github.com/ayberkgezer/gocolorlog"
 )
 
 func main() {
-	log := colorlog.NewLogger()
+	log := gocolorlog.NewLogger()
 	log.Log(200, "GET", "/api/test", 120*time.Millisecond, nil)
 	log.Log(404, "POST", "/api/notfound", 80*time.Millisecond, nil)
 	log.Log(500, "DELETE", "/api/error", 200*time.Millisecond,
@@ -68,24 +68,10 @@ type Logger interface {
 ### Creating a Logger
 
 ```go
-log := colorlog.NewLogger()
+log := gocolorlog.NewLogger()
 ```
 
 You can also customize the output destination (see below).
-
-## Customization
-
-You can provide a custom writer (for example, to log to a file):
-
-```go
-import (
-    "os"
-    "github.com/ayberkgezer/colorlog/internal/options"
-)
-
-file, _ := os.Create("mylog.txt")
-log := colorlog.NewLogger(options.WithWriter(file))
-```
 
 ## License
 
