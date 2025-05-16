@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/ayberkgezer/gocolorlog/compare/v1.0.1...v1.1.0) (2025-05-16)
+
+
+### Features
+
+* Refactor Context to ContextLevel with level type ([ce07298](https://github.com/ayberkgezer/gocolorlog/commit/ce072981cb3cb582378f7949a479f4e91030762d))
+* Refactor logger interface and add extensible colored logging ([3632b63](https://github.com/ayberkgezer/gocolorlog/commit/3632b634e75c3048f6da4fee77d5761356c0262b))
+
 ## [1.0.1](https://github.com/ayberkgezer/gocolorlog/compare/v1.0.0...v1.0.1) (2025-05-15)
 
 
