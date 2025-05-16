@@ -22,9 +22,9 @@ func main() {
 	gocolorlog.HTTP(500, "DELETE", "/api/error", 200*time.Millisecond, errors.New("internal server error"))
 
 	gocolorlog.Info("Database connection: Successful")
-	gocolorlog.Context("INFO", "Bootstrap", "Application is running on: %s", "http://localhost:3000")
-	gocolorlog.Context("INFO", "Bootstrap", "Environment: %s", "development")
+	gocolorlog.ContextLevel("INFO", "Bootstrap", "Application is running on: %s", "http://localhost:3000")
+	gocolorlog.ContextLevel("INFO", "Bootstrap", "Environment: %s", "development")
 	gocolorlog.HTTP(201, "POST", "/ai-chat", 6*time.Millisecond, nil)
-	gocolorlog.Context("WARN", "Bootstrap", "Cache miss for key %s", "user:123")
-	gocolorlog.Context("ERROR", "Bootstrap", "Failed to connect to DB: %v", fmt.Errorf("timeout"))
+	gocolorlog.ContextLevel("WARN", "Bootstrap", "Cache miss for key %s", "user:123")
+	gocolorlog.ContextLevel("ERROR", "Bootstrap", "Failed to connect to DB: %v", fmt.Errorf("timeout"))
 }

@@ -10,4 +10,5 @@ const (
 	Info  Level = "INFO"  // INFO
 	Warn  Level = "WARN"  // WARN
 	Error Level = "ERROR" // ERROR
+	HTTP  Level = "HTTP"  // HTTP
 )

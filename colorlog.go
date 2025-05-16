@@ -5,6 +5,7 @@ package gocolorlog
 import (
 	"time"
 
+	"github.com/ayberkgezer/gocolorlog/internal/level"
 	"github.com/ayberkgezer/gocolorlog/internal/logger"
 )
 
@@ -26,7 +27,7 @@ type Logger interface {
 	// HTTP logs an HTTP request with status, method, path, latency, and optional error.
 	HTTP(status int, method, path string, latency time.Duration, err error)
 	// Context logs a message with a custom level and context.
-	Context(level, context, msg string, args ...any)
+	Context(level.Level, string, string, ...any)
 }
 
 var defaultLogger Logger = logger.NewStdLogger()
@@ -63,6 +64,6 @@ func HTTP(status int, method, path string, latency time.Duration, err error) {
 }
 
 // Context logs a message with a custom level and context using the default logger.
-func Context(level, context, msg string, args ...any) {
+func ContextLevel(level level.Level, context, msg string, args ...any) {
 	defaultLogger.Context(level, context, msg, args...)
 }

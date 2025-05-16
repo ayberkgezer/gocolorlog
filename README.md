@@ -52,7 +52,7 @@ func main() {
 	gocolorlog.HTTP(404, "POST", "/api/notfound", 80*time.Millisecond, nil)
 	gocolorlog.HTTP(500, "DELETE", "/api/error", 200*time.Millisecond, fmt.Errorf("internal server error"))
 
-	gocolorlog.Context("INFO", "Bootstrap", "Application is running on: %s", "http://localhost:3000")
+	gocolorlog.ContextLevel("INFO", "Bootstrap", "Application is running on: %s", "http://localhost:3000")
 }
 ```
 
@@ -86,7 +86,7 @@ type Logger interface {
     Error(msg string)
     Errorf(format string, args ...any)
     HTTP(status int, method, path string, latency time.Duration, err error)
-    Context(level, context, msg string, args ...any)
+    ContextLevel(level, context, msg string, args ...any)
 }
 ```
 
@@ -96,7 +96,7 @@ type Logger interface {
 - **Warn / Warnf**: Log warnings.
 - **Error / Errorf**: Log errors.
 - **HTTP**: Log HTTP requests with status, method, path, latency, and optional error.
-- **Context**: Log with a custom level and context.
+- **ContextLevel**: Log with a custom level and context.
 
 ---
 
@@ -106,7 +106,7 @@ type Logger interface {
 gocolorlog.Info("Message")
 gocolorlog.Warnf("Warning: %s", "details")
 gocolorlog.HTTP(404, "POST", "/api/notfound", 80*time.Millisecond, nil)
-gocolorlog.Context("ERROR", "DB", "Connection error: %v", err)
+gocolorlog.ContextLevel("ERROR", "DB", "Connection error: %v", err)
 ```
 
 ---

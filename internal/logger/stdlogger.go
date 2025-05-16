@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/ayberkgezer/gocolorlog/internal/color"
+	"github.com/ayberkgezer/gocolorlog/internal/level"
 )
 
 type stdLogger struct {
@@ -18,75 +19,75 @@ func NewStdLogger() *stdLogger {
 }
 
 func (s *stdLogger) Info(msg string) {
-	s.Context("INFO", "App", "%s", msg)
+	s.Context(level.Info, "App", "%s", msg)
 }
 
 func (s *stdLogger) Infof(format string, args ...any) {
-	s.Context("INFO", "App", format, args...)
+	s.Context(level.Info, "App", format, args...)
 }
 
 func (s *stdLogger) Warn(msg string) {
-	s.Context("WARN", "App", "%s", msg)
+	s.Context(level.Warn, "App", "%s", msg)
 }
 
 func (s *stdLogger) Warnf(format string, args ...any) {
-	s.Context("WARN", "App", format, args...)
+	s.Context(level.Warn, "App", format, args...)
 }
 
 func (s *stdLogger) Error(msg string) {
-	s.Context("ERROR", "App", "%s", msg)
+	s.Context(level.Error, "App", "%s", msg)
 }
 
 func (s *stdLogger) Errorf(format string, args ...any) {
-	s.Context("ERROR", "App", format, args...)
+	s.Context(level.Error, "App", format, args...)
 }
 
 func (s *stdLogger) HTTP(status int, method, path string, latency time.Duration, err error) {
-	level := "HTTP"
+	lvl := level.HTTP
 	context := fmt.Sprintf("%d", status)
 	msg := fmt.Sprintf("%s %s %d %dms - %s", method, path, status, latency.Milliseconds(), latency)
 	if err != nil {
 		msg += fmt.Sprintf(" handler error: %v", err)
 	}
 	// Renkli context için özel fonksiyon
-	s.ContextWithColor(level, context, statusColor(status), "%s", msg)
+	s.ContextWithColor(lvl, context, statusColor(status), "%s", msg)
 }
 
-func (s *stdLogger) Context(level, context, msg string, args ...any) {
+func (s *stdLogger) Context(lvl level.Level, context, msg string, args ...any) {
 	pid := os.Getpid()
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
-	col := colorForLevel(level)
+	col := colorForLevel(lvl)
 	formatted := msg
 	if len(args) > 0 {
 		formatted = fmt.Sprintf(msg, args...)
 	}
 	s.l.Printf("%s[Log]%s %d - %s  %s%-5s%s [%s] %s",
 		color.Cyan, color.Reset, pid, timestamp,
-		col, level, color.Reset, context, formatted)
+		col, lvl, color.Reset, context, formatted)
 }
 
-func (s *stdLogger) ContextWithColor(level, context, contextColor, msg string, args ...any) {
+func (s *stdLogger) ContextWithColor(lvl level.Level, context, contextColor, msg string, args ...any) {
 	pid := os.Getpid()
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
-	col := colorForLevel(level)
+	col := colorForLevel(lvl)
 	formatted := msg
 	if len(args) > 0 {
 		formatted = fmt.Sprintf(msg, args...)
 	}
 	s.l.Printf("%s[Log]%s %d - %s  %s%-5s%s [%s%s%s] %s",
 		color.Cyan, color.Reset, pid, timestamp,
-		col, level, color.Reset, contextColor, context, color.Reset, formatted)
+		col, lvl, color.Reset, contextColor, context, color.Reset, formatted)
 }
 
-func colorForLevel(level string) string {
-	switch level {
-	case "INFO":
+func colorForLevel(lvl level.Level) string {
+	switch lvl {
+	case level.Info:
 		return color.BrightGreen
-	case "WARN":
+	case level.Warn:
 		return color.BrightYellow
-	case "ERROR":
+	case level.Error:
 		return color.BrightRed
-	case "HTTP":
+	case level.HTTP:
 		return color.BrightCyan
 	default:
 		return color.White
