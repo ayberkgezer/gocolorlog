@@ -42,12 +42,12 @@ func (s *stdLogger) Errorf(format string, args ...any) {
 	s.Context(level.Error, "App", format, args...)
 }
 
-func (s *stdLogger) HTTP(status int, method, path string, latency time.Duration, err error) {
+func (s *stdLogger) HTTP(status int, method, path string, latency time.Duration, ip string, err error) {
 	lvl := level.HTTP
 	context := fmt.Sprintf("%d", status)
-	msg := fmt.Sprintf("%s %s %d %dms - %s", method, path, status, latency.Milliseconds(), latency)
+	msg := fmt.Sprintf("%s | %s | %d | %dms - %s | %s ", method, path, status, latency.Milliseconds(), latency, ip)
 	if err != nil {
-		msg += fmt.Sprintf(" handler error: %v", err)
+		msg += fmt.Sprintf("| %s[Error]: %v %s", color.Red, err, color.Reset)
 	}
 	// Renkli context için özel fonksiyon
 	s.ContextWithColor(lvl, context, statusColor(status), "%s", msg)
