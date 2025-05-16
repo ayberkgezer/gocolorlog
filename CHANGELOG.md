@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/ayberkgezer/gocolorlog/compare/v1.1.0...v1.1.1) (2025-05-16)
+
+
+### Bug Fixes
+
+* Add client IP to HTTP log method and update usage ([5c4514d](https://github.com/ayberkgezer/gocolorlog/commit/5c4514daa812c925834471b6863f9b07f84cb5bc))
+
 ## [1.1.0](https://github.com/ayberkgezer/gocolorlog/compare/v1.0.1...v1.1.0) (2025-05-16)
 
 
