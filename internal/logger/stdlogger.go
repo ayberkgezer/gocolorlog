@@ -45,7 +45,7 @@ func (s *stdLogger) Errorf(format string, args ...any) {
 func (s *stdLogger) HTTP(status int, method, path string, latency time.Duration, ip string, requestID string, err error) {
 	lvl := level.HTTP
 	context := fmt.Sprintf("%d", status)
-	msg := fmt.Sprintf("%s | %s | %d | %dms - %s | %s", method, path, status, latency.Milliseconds(), latency, ip)
+	msg := fmt.Sprintf("%s | %s | %dms - %s | %s", method, path, latency.Milliseconds(), latency, ip)
 	if requestID != "" {
 		msg += fmt.Sprintf(" | RequestID: %s", requestID)
 	}
