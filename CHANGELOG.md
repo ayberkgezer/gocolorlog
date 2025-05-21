@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/ayberkgezer/gocolorlog/compare/v1.2.0...v1.2.1) (2025-05-21)
+
+
+### Bug Fixes
+
+* Fix HTTP log format to remove duplicate status code ([534ed3b](https://github.com/ayberkgezer/gocolorlog/commit/534ed3bdd228efbf7e21edda6b0bf683c7d90726))
+
 ## [1.2.0](https://github.com/ayberkgezer/gocolorlog/compare/v1.1.1...v1.2.0) (2025-05-21)
 
 
