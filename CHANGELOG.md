@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/ayberkgezer/gocolorlog/compare/v1.1.1...v1.2.0) (2025-05-21)
+
+
+### Features
+
+* Add requestID parameter to HTTP log methods and output ([2a25d8e](https://github.com/ayberkgezer/gocolorlog/commit/2a25d8e742289aa0d8f8265a6534e746104c41a0))
+
 ## [1.1.1](https://github.com/ayberkgezer/gocolorlog/compare/v1.1.0...v1.1.1) (2025-05-16)
 
 
