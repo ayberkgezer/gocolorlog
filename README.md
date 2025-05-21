@@ -64,9 +64,9 @@ func main() {
 [Log] 12345 - 2025-05-15 12:34:56  [WARN ] [App] Slow query: SELECT * FROM users
 [Log] 12345 - 2025-05-15 12:34:56  [ERROR] [App] Failed to connect to DB
 [Log] 12345 - 2025-05-15 12:34:56  [ERROR] [App] Failed to open file: config.yaml
-[Log] 62388 - 2025-05-16 21:29:01  HTTP  [200] GET | /api/test | 200 | 120ms - 120ms | 192.168.1.1
-[Log] 62388 - 2025-05-16 21:29:01  HTTP  [404] POST | /api/notfound | 404 | 80ms - 80ms | RequestID: 71g261g61 |192.168.1.1 |
-[Log] 62388 - 2025-05-16 21:29:01  HTTP  [500] DELETE | /api/error | 500 | 200ms - 200ms | 192.168.1.1 | RequestID: 71g261g61 | [Error]: internal server error
+[Log] 62388 - 2025-05-16 21:29:01  HTTP  [200] GET | /api/test | 120ms - 120ms | 192.168.1.1
+[Log] 62388 - 2025-05-16 21:29:01  HTTP  [404] POST | /api/notfound | 80ms - 80ms | RequestID: 71g261g61 |192.168.1.1 |
+[Log] 62388 - 2025-05-16 21:29:01  HTTP  [500] DELETE | /api/error | 200ms - 200ms | 192.168.1.1 | RequestID: 71g261g61 | [Error]: internal server error
 [Log] 12345 - 2025-05-15 12:34:56  [INFO ] [Bootstrap] Application is running on: http://localhost:3000
 ```
 *(Colors will be visible in a terminal that supports ANSI colors.)*
