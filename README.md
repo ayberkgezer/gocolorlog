@@ -44,13 +44,13 @@ func main() {
 	gocolorlog.Info("Starting application")
 	gocolorlog.Infof("Listening on port %d", 8080)
 	gocolorlog.Warn("Cache miss for key user:123")
-	gocolorlog.Warnf("Slow query: %s", "SELECT * FROM users")
+ 	gocolorlog.Warnf("Slow query: %s", "SELECT * FROM users")
 	gocolorlog.Error("Failed to connect to DB")
 	gocolorlog.Errorf("Failed to open file: %s", "config.yaml")
 
-	gocolorlog.HTTP(200, "GET", "/api/test", 120*time.Millisecond,"ip-adress", nil)
-	gocolorlog.HTTP(404, "POST", "/api/notfound", 80*time.Millisecond,"ip-adress", nil)
-	gocolorlog.HTTP(500, "DELETE", "/api/error", 200*time.Millisecond,"ip-adress", fmt.Errorf("internal server error"))
+	gocolorlog.HTTP(200, "GET", "/api/test", 120*time.Millisecond,"ip-adress", "",nil)
+	gocolorlog.HTTP(404, "POST", "/api/notfound", 80*time.Millisecond,"ip-adress","Requsetid", nil)
+	gocolorlog.HTTP(500, "DELETE", "/api/error", 200*time.Millisecond,"ip-adress", "Requsetid",fmt.Errorf("internal server error"))
 
 	gocolorlog.ContextLevel("INFO", "Bootstrap", "Application is running on: %s", "http://localhost:3000")
 }
@@ -65,8 +65,8 @@ func main() {
 [Log] 12345 - 2025-05-15 12:34:56  [ERROR] [App] Failed to connect to DB
 [Log] 12345 - 2025-05-15 12:34:56  [ERROR] [App] Failed to open file: config.yaml
 [Log] 62388 - 2025-05-16 21:29:01  HTTP  [200] GET | /api/test | 200 | 120ms - 120ms | 192.168.1.1
-[Log] 62388 - 2025-05-16 21:29:01  HTTP  [404] POST | /api/notfound | 404 | 80ms - 80ms | 192.168.1.1 |
-[Log] 62388 - 2025-05-16 21:29:01  HTTP  [500] DELETE | /api/error | 500 | 200ms - 200ms | 192.168.1.1 | [Error]: internal server error
+[Log] 62388 - 2025-05-16 21:29:01  HTTP  [404] POST | /api/notfound | 404 | 80ms - 80ms | RequestID: 71g261g61 |192.168.1.1 |
+[Log] 62388 - 2025-05-16 21:29:01  HTTP  [500] DELETE | /api/error | 500 | 200ms - 200ms | 192.168.1.1 | RequestID: 71g261g61 | [Error]: internal server error
 [Log] 12345 - 2025-05-15 12:34:56  [INFO ] [Bootstrap] Application is running on: http://localhost:3000
 ```
 *(Colors will be visible in a terminal that supports ANSI colors.)*
@@ -85,7 +85,7 @@ type Logger interface {
     Warnf(format string, args ...any)
     Error(msg string)
     Errorf(format string, args ...any)
-    HTTP(status int, method, path string, latency time.Duration, ip string, err error)
+    HTTP(status int, method, path string, latency time.Duration, ip string, requestID string, err error)
     ContextLevel(level, context, msg string, args ...any)
 }
 ```
@@ -105,7 +105,7 @@ type Logger interface {
 ```go
 gocolorlog.Info("Message")
 gocolorlog.Warnf("Warning: %s", "details")
-gocolorlog.HTTP(404, "POST", "/api/notfound", 80*time.Millisecond,"ip-adress" nil)
+gocolorlog.HTTP(404, "POST", "/api/notfound", 80*time.Millisecond,"ip-adress", "",nil)
 gocolorlog.ContextLevel("ERROR", "DB", "Connection error: %v", err)
 ```
 

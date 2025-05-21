@@ -25,7 +25,7 @@ type Logger interface {
 	// Errorf logs a formatted error message.
 	Errorf(format string, args ...any)
 	// HTTP logs an HTTP request with status, method, path, latency, and optional error.
-	HTTP(status int, method, path string, latency time.Duration, ip string, err error)
+	HTTP(status int, method, path string, latency time.Duration, ip string, requestID string, err error)
 	// Context logs a message with a custom level and context.
 	Context(level.Level, string, string, ...any)
 }
@@ -59,8 +59,8 @@ func Error(msg string) { defaultLogger.Error(msg) }
 func Errorf(format string, args ...any) { defaultLogger.Errorf(format, args...) }
 
 // HTTP logs an HTTP request using the default logger.
-func HTTP(status int, method, path string, latency time.Duration, ip string, err error) {
-	defaultLogger.HTTP(status, method, path, latency, ip, err)
+func HTTP(status int, method, path string, latency time.Duration, ip string, requestID string, err error) {
+	defaultLogger.HTTP(status, method, path, latency, ip, requestID, err)
 }
 
 // Context logs a message with a custom level and context using the default logger.

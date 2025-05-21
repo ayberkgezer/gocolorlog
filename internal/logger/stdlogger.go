@@ -42,12 +42,15 @@ func (s *stdLogger) Errorf(format string, args ...any) {
 	s.Context(level.Error, "App", format, args...)
 }
 
-func (s *stdLogger) HTTP(status int, method, path string, latency time.Duration, ip string, err error) {
+func (s *stdLogger) HTTP(status int, method, path string, latency time.Duration, ip string, requestID string, err error) {
 	lvl := level.HTTP
 	context := fmt.Sprintf("%d", status)
-	msg := fmt.Sprintf("%s | %s | %d | %dms - %s | %s ", method, path, status, latency.Milliseconds(), latency, ip)
+	msg := fmt.Sprintf("%s | %s | %d | %dms - %s | %s", method, path, status, latency.Milliseconds(), latency, ip)
+	if requestID != "" {
+		msg += fmt.Sprintf(" | RequestID: %s", requestID)
+	}
 	if err != nil {
-		msg += fmt.Sprintf("| %s[Error]: %v %s", color.Red, err, color.Reset)
+		msg += fmt.Sprintf(" | %s[Error]: %v %s", color.Red, err, color.Reset)
 	}
 	// Renkli context için özel fonksiyon
 	s.ContextWithColor(lvl, context, statusColor(status), "%s", msg)
@@ -77,6 +80,19 @@ func (s *stdLogger) ContextWithColor(lvl level.Level, context, contextColor, msg
 	s.l.Printf("%s[Log]%s %d - %s  %s%-5s%s [%s%s%s] %s",
 		color.Cyan, color.Reset, pid, timestamp,
 		col, lvl, color.Reset, contextColor, context, color.Reset, formatted)
+}
+
+func (s *stdLogger) ContextLevelWithRequestID(lvl level.Level, context, requestID, msg string, args ...any) {
+	pid := os.Getpid()
+	timestamp := time.Now().Format("2006-01-02 15:04:05")
+	col := colorForLevel(lvl)
+	formatted := msg
+	if len(args) > 0 {
+		formatted = fmt.Sprintf(msg, args...)
+	}
+	s.l.Printf("%s[Log]%s %d - %s  %s%-5s%s [%s] [%s] %s",
+		color.Cyan, color.Reset, pid, timestamp,
+		col, lvl, color.Reset, context, requestID, formatted)
 }
 
 func colorForLevel(lvl level.Level) string {
