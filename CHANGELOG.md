@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/ayberkgezer/gocolorlog/compare/v1.2.1...v1.3.0) (2025-05-24)
+
+
+### Features
+
+* Add Debug and Fatal logging methods to the logger interface and implementation ([ed555c3](https://github.com/ayberkgezer/gocolorlog/commit/ed555c3d5d500576f7a110b5f25c9fce482cead8))
+
 ## [1.2.1](https://github.com/ayberkgezer/gocolorlog/compare/v1.2.0...v1.2.1) (2025-05-21)
 
 
