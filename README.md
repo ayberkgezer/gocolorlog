@@ -41,6 +41,8 @@ import (
 )
 
 func main() {
+	gocolorlog.Debug("Starting debug mode")
+	gocolorlog.Debugf("Debug info: %s", "application initialization")
 	gocolorlog.Info("Starting application")
 	gocolorlog.Infof("Listening on port %d", 8080)
 	gocolorlog.Warn("Cache miss for key user:123")
@@ -53,11 +55,16 @@ func main() {
 	gocolorlog.HTTP(500, "DELETE", "/api/error", 200*time.Millisecond,"ip-adress", "Requsetid",fmt.Errorf("internal server error"))
 
 	gocolorlog.ContextLevel("INFO", "Bootstrap", "Application is running on: %s", "http://localhost:3000")
+
+	gocolorlog.Fatal("Critical error system shutdown")
+	gocolorlog.Fatalf("Critical error: %v", fmt.Errorf("system failure"))
 }
 ```
 
 **Sample Output:**
 ```
+[Log] 16639 - 2025-05-25 00:44:02  DEBUG [App] Starting debug mode
+[Log] 16639 - 2025-05-25 00:44:02  DEBUG [App] Debug info: application initialization
 [Log] 12345 - 2025-05-15 12:34:56  [INFO ] [App] Starting application
 [Log] 12345 - 2025-05-15 12:34:56  [INFO ] [App] Listening on port 8080
 [Log] 12345 - 2025-05-15 12:34:56  [WARN ] [App] Cache miss for key user:123
@@ -68,6 +75,8 @@ func main() {
 [Log] 62388 - 2025-05-16 21:29:01  HTTP  [404] POST | /api/notfound | 80ms - 80ms | RequestID: 71g261g61 |192.168.1.1 |
 [Log] 62388 - 2025-05-16 21:29:01  HTTP  [500] DELETE | /api/error | 200ms - 200ms | 192.168.1.1 | RequestID: 71g261g61 | [Error]: internal server error
 [Log] 12345 - 2025-05-15 12:34:56  [INFO ] [Bootstrap] Application is running on: http://localhost:3000
+
+[Log] 16639 - 2025-05-25 00:44:02  FATAL [App] Critical error occurred - shutting down
 ```
 *(Colors will be visible in a terminal that supports ANSI colors.)*
 
@@ -79,6 +88,8 @@ func main() {
 
 ```go
 type Logger interface {
+	Debug(msg string)
+	Debugf(format string, args ...any)
     Info(msg string)
     Infof(format string, args ...any)
     Warn(msg string)
@@ -87,16 +98,20 @@ type Logger interface {
     Errorf(format string, args ...any)
     HTTP(status int, method, path string, latency time.Duration, ip string, requestID string, err error)
     ContextLevel(level, context, msg string, args ...any)
+	Fatal(msg string)
+	Fatalf(format string, args ...any)
 }
 ```
 
 #### Method Descriptions
 
+- **Debug / Debugf**: Debug mod log
 - **Info / Infof**: Log informational messages.
 - **Warn / Warnf**: Log warnings.
 - **Error / Errorf**: Log errors.
 - **HTTP**: Log HTTP requests with status, method, path, latency, and optional error.
 - **ContextLevel**: Log with a custom level and context.
+- **Fatal / Fatalf**: Log critical errors and exit the application.
 
 ---
 

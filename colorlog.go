@@ -12,6 +12,10 @@ import (
 // Logger is the extensible logging interface for gocolorlog.
 // You can implement this interface to customize logging behavior.
 type Logger interface {
+	// Debug logs a debug message.
+	Debug(msg string)
+	// Debugf logs a formatted debug message.
+	Debugf(format string, args ...any)
 	// Info logs an informational message.
 	Info(msg string)
 	// Infof logs a formatted informational message.
@@ -24,6 +28,10 @@ type Logger interface {
 	Error(msg string)
 	// Errorf logs a formatted error message.
 	Errorf(format string, args ...any)
+	// Fatal logs a fatal error message and exits the application.
+	Fatal(msg string)
+	// Fatalf logs a formatted fatal error message and exits the application.
+	Fatalf(format string, args ...any)
 	// HTTP logs an HTTP request with status, method, path, latency, and optional error.
 	HTTP(status int, method, path string, latency time.Duration, ip string, requestID string, err error)
 	// Context logs a message with a custom level and context.
@@ -38,6 +46,22 @@ func SetLogger(l Logger) {
 	if l != nil {
 		defaultLogger = l
 	}
+}
+
+// Debug logs a debug message using the default logger.
+func Debug(msg string) { defaultLogger.Debug(msg) }
+
+// Debugf logs a formatted debug message using the default logger.
+func Debugf(format string, args ...any) { defaultLogger.Debugf(format, args...) }
+
+// Fatal logs a fatal error message using the default logger and exits the application.
+func Fatal(msg string) {
+	defaultLogger.Fatal(msg)
+}
+
+// Fatalf logs a formatted fatal error message using the default logger and exits the application.
+func Fatalf(format string, args ...any) {
+	defaultLogger.Fatalf(format, args...)
 }
 
 // Info logs an informational message using the default logger.
