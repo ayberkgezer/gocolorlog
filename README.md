@@ -1,5 +1,10 @@
 # gocolorlog
 
+![GitHub Tag](https://img.shields.io/github/v/tag/ayberkgezer/gocolorlog)
+![GitHub License](https://img.shields.io/github/license/ayberkgezer/gocolorlog)
+![GitHub Go Modules](https://img.shields.io/github/go-mod/go-version/ayberkgezer/gocolorlog)
+![GitHub Issues](https://img.shields.io/github/issues/ayberkgezer/gocolorlog)
+
 **gocolorlog** is a simple, extensible, and colored logging package for Go.
 It maps HTTP status codes to colored log levels, making your terminal output clear and easy to read.
 
@@ -50,9 +55,9 @@ func main() {
 	gocolorlog.Error("Failed to connect to DB")
 	gocolorlog.Errorf("Failed to open file: %s", "config.yaml")
 
-	gocolorlog.HTTP(200, "GET", "/api/test", 120*time.Millisecond,"ip-adress", "",nil)
-	gocolorlog.HTTP(404, "POST", "/api/notfound", 80*time.Millisecond,"ip-adress","Requsetid", nil)
-	gocolorlog.HTTP(500, "DELETE", "/api/error", 200*time.Millisecond,"ip-adress", "Requsetid",fmt.Errorf("internal server error"))
+	gocolorlog.HTTP(200, "GET", "/api/test", 120*time.Millisecond, "ip-adress", "", nil)
+	gocolorlog.HTTP(404, "POST", "/api/notfound", 80*time.Millisecond, "ip-adress", "Requsetid", nil)
+	gocolorlog.HTTP(500, "DELETE", "/api/error", 200*time.Millisecond, "ip-adress", "Requsetid", fmt.Errorf("internal server error"))
 
 	gocolorlog.ContextLevel("INFO", "Bootstrap", "Application is running on: %s", "http://localhost:3000")
 
